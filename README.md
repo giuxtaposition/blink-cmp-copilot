@@ -39,9 +39,7 @@ require("copilot").setup({
 
 ### Configuration:
 
-#### blink-cmp:
-
-##### Source Definition
+#### Source Definition
 
 To link blink-cmp with this source, simply go into your configuration file and add blink-cmp-copilot in you providers and also remember to enable it! Here's a minimal example:
 
@@ -60,9 +58,78 @@ To link blink-cmp with this source, simply go into your configuration file and a
           copilot = {
             name = "copilot",
             module = "blink-cmp-copilot",
+            score_offset = 100,
+            async = true,
           },
         },
       },
     },
   }
 ```
+
+#### Copilot Kind Icon
+
+If you want to see Copilot icon like this example:
+![kind-example](./.github/assets/kind.png) 
+
+You must update your configuration like this:
+```lua
+...
+    opts = {
+      sources = {
+        providers = {
+          copilot = {
+            ...
+            transform_items = function(_, items)
+              local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+              local kind_idx = #CompletionItemKind + 1
+              CompletionItemKind[kind_idx] = "Copilot"
+              for _, item in ipairs(items) do
+                item.kind = kind_idx
+              end
+              return items
+            end,
+            ...
+          },
+        },
+      },
+      appearance = {
+        -- Blink does not expose its default kind icons so you must copy them all (or set your custom ones) and add Copilot
+        kind_icons = {
+          Copilot = "",
+          Text = '󰉿',
+          Method = '󰊕',
+          Function = '󰊕',
+          Constructor = '󰒓',
+
+          Field = '󰜢',
+          Variable = '󰆦',
+          Property = '󰖷',
+
+          Class = '󱡠',
+          Interface = '󱡠',
+          Struct = '󱡠',
+          Module = '󰅩',
+
+          Unit = '󰪚',
+          Value = '󰦨',
+          Enum = '󰦨',
+          EnumMember = '󰦨',
+
+          Keyword = '󰻾',
+          Constant = '󰏿',
+
+          Snippet = '󱄽',
+          Color = '󰏘',
+          File = '󰈔',
+          Reference = '󰬲',
+          Folder = '󰉋',
+          Event = '󱐋',
+          Operator = '󰪚',
+          TypeParameter = '󰬛',
+        },
+    },
+...
+```
+
+
