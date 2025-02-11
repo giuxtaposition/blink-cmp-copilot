@@ -97,7 +97,7 @@ You must update your configuration like this:
       appearance = {
         -- Blink does not expose its default kind icons so you must copy them all (or set your custom ones) and add Copilot
         kind_icons = {
-          Copilot = "",
+          Copilot = "",
           Text = '󰉿',
           Method = '󰊕',
           Function = '󰊕',
@@ -130,5 +130,23 @@ You must update your configuration like this:
           TypeParameter = '󰬛',
         },
     },
+...
+```
+
+##### Lazy
+
+For lazy.nvim, you could set `opts_extend` to avoid repeating the default config:
+
+```lua
+...
+    opts = {
+      ...
+      appearance = {
+        kind_icons = {
+          Copilot = "",
+        },
+    },
+    -- Set `opts_extend` to preserve the default config
+    opts_extend = { appearance.kind_icons" },
 ...
 ```
